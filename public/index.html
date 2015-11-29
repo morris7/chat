@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chat using socket.io</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css"/>
+</head>
+<body>
+<ul id="messages"></ul>
+<form action="" class="pure-form">
+    <input id="message" autocomplete="off" />
+    <button class="pure-button pure-button-primary">Send</button>
+</form>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<script>
+    var socket = io();
+    jQuery('form').submit(function(){
+        socket.emit('chat', jQuery('#message').val());
+        jQuery('#message').val('');
+        return false;
+    });
+    socket.on('chat', function(msg){
+        jQuery('#messages').append(jQuery('<li>').text(msg));
+    });
+</script>
+</body>
+</html>
